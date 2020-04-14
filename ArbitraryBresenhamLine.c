@@ -11,7 +11,8 @@ int main(void){
   int from[NUM_OF_DIMS], to[NUM_OF_DIMS];
   size_t totalSteps;
 
-  for(int i = 0; i<NUM_OF_DIMS; ++i){
+  srand(time(0));
+  for(int i=0; i<NUM_OF_DIMS; ++i){
     from[i] = (int)(rand()%(1<<NS)) - (1<<(NS-1));
     to[i] = (int)(rand()%(1<<NS)) - (1<<(NS-1));
     printf("dim_%d: from %d to %d\n", i, from[i], to[i]);
@@ -29,7 +30,7 @@ size_t bresenhamLineArbitrary(int from[], int to[]){
   int diff, absDiff;
   size_t steps = 0;
 
-  for(int i=0;i<NUM_OF_DIMS;++i){
+  for(int i=0; i<NUM_OF_DIMS; ++i){
     current[i] = from[i];
     diff = to[i] - from[i];
     inc[i] = (diff>0) - (diff<0);
@@ -41,12 +42,12 @@ size_t bresenhamLineArbitrary(int from[], int to[]){
     }
   }
 
-  for(int i=0;i<NUM_OF_DIMS;++i){
+  for(int i=0; i<NUM_OF_DIMS; ++i){
     err[i] = absDiffx2[i] - steps;
   }
 
-  for(int j=0;j<steps;++j){
-    for(int i=0;i<NUM_OF_DIMS;++i){
+  for(int j=0; j<steps; ++j){
+    for(int i=0; i<NUM_OF_DIMS; ++i){
       if (err[i] > 0) {
         current[i] += inc[i];
         err[i] -= steps*2;
